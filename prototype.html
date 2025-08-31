@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F2p Starhunt Scout Map</title>
+<style>
+body {
+    margin: 0;
+    background: #0f1115;
+    display: grid;
+    place-items: center;
+    min-height: 80vh;
+}
+.wrap {
+    width: min(95vw, 492px);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #101317;
+  }
+svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #0b0e12;
+}
+
+/* Start grayed out */
+.gray { filter: grayscale(100%) }
+
+/* The color image is fully hidden by a mask until a region turns "on" */
+.color { mask: url(#active-mask); }
+
+/* Mask paint: only white (opaque) parts reveal the color image */
+.mask-region { fill: white; fill-opacity: 0; transition: fill-opacity .25s ease; }
+.mask-region.active { fill-opacity: 1 }
+
+/* Clickable Region */
+.overlay-region { fill: transparent; cursor: pointer; }
+</style>
+</head>
+<body>
+    <div class="wrap">
+        <svg viewBox="0 0 492 609" aria-label="Interactive scout map">
+            <defs>
+                <g id="Mask">
+                    <rect
+                        id="mask"
+                        width="492"
+                        height="609"
+                        x="0"
+                        y="0" />
+                    <rect
+                        id="vb_vse"
+                        width="141"
+                        height="142"
+                        x="350.76099"
+                        y="289.92883" />
+                    <rect
+                        id="akm_apa"
+                        width="140"
+                        height="104"
+                        x="352"
+                        y="430.40979" />
+                    <rect
+                        id="lse_akb"
+                        width="84.438004"
+                        height="79.954597"
+                        x="352.69693"
+                        y="529.04541" />
+                    <rect
+                        id="uzer"
+                        width="56"
+                        height="78"
+                        x="436"
+                        y="531" />
+                    <rect
+                        id="vsw"
+                        width="99"
+                        height="141"
+                        x="252.56686"
+                        y="290.67609" />
+                    <rect
+                        id="dray"
+                        width="102.372"
+                        height="94.899384"
+                        x="250.32515"
+                        y="431.15704" />
+                    <rect
+                        id="lsw"
+                        width="103.119"
+                        height="83.690796"
+                        x="250.32515"
+                        y="525.3092" />
+                    <rect
+                        id="fb"
+                        width="111.339"
+                        height="68.74601"
+                        x="141.22823"
+                        y="372.12515" />
+                    <rect
+                        id="ice"
+                        width="112"
+                        height="82"
+                        x="141.22823"
+                        y="290.67609" />
+                    <rect
+                        id="cg_rim"
+                        width="135.25"
+                        height="180.83191"
+                        x="115.82208"
+                        y="428.16809" />
+                    <rect
+                        id="ccb"
+                        width="61"
+                        height="138"
+                        x="80.701843"
+                        y="290.67609" />
+                    <rect
+                        id="crandor"
+                        width="116"
+                        height="180.83191"
+                        x="0"
+                        y="428.16809" />
+                    <rect
+                        id="ccr_myth"
+                        width="81"
+                        height="139"
+                        x="0"
+                        y="289.92883" />
+                    <rect
+                        id="rune"
+                        width="492"
+                        height="80"
+                        x="0"
+                        y="0" />
+                    <rect
+                        id="hob"
+                        width="492"
+                        height="114"
+                        x="0"
+                        y="79.954597" />
+                    <rect
+                        id="abyss"
+                        width="247"
+                        height="98"
+                        x="245"
+                        y="193.53497" />
+                    <rect
+                        id="coal"
+                        width="246"
+                        height="98"
+                        x="0"
+                        y="193.53497" />
+                </g>
+
+                <!-- The active mask starts fully black (hides color); white shapes reveal color -->
+                <mask id="active-mask" maskUnits="userSpaceOnUse">
+                    <rect x="0" y="0" width="492" height="609" fill="black"/>
+                    <!-- Each mask-region becomes opaque (white) when its corresponding overlay is toggled 'active' -->
+                    <use id="m-mask" href="#mask" class="mask-region"/>
+                    <use id="m-vb_vse" href="#vb_vse" class="mask-region"/>
+                    <use id="m-akm_apa" href="#akm_apa" class="mask-region"/>
+                    <use id="m-lse_akb" href="#lse_akb" class="mask-region"/>
+                    <use id="m-uzer" href="#uzer" class="mask-region"/>
+                    <use id="m-vsw" href="#vsw" class="mask-region"/>
+                    <use id="m-dray" href="#dray" class="mask-region"/>
+                    <use id="m-lsw" href="#lsw" class="mask-region"/>
+                    <use id="m-fb" href="#fb" class="mask-region"/>
+                    <use id="m-ice" href="#ice" class="mask-region"/>
+                    <use id="m-cg_rim" href="#cg_rim" class="mask-region"/>
+                    <use id="m-ccb" href="#ccb" class="mask-region"/>
+                    <use id="m-crandor" href="#crandor" class="mask-region"/>
+                    <use id="m-ccr_myth" href="#ccr_myth" class="mask-region"/>
+                    <use id="m-rune" href="#rune" class="mask-region"/>
+                    <use id="m-hob" href="#hob" class="mask-region"/>
+                    <use id="m-abyss" href="#abyss" class="mask-region"/>
+                    <use id="m-coal" href="#coal" class="mask-region"/>
+                </mask>
+            </defs>
+            <!-- Base gray map -->
+            <image href="uzer-myth added Screenshot_2025-08-25_205453.png" alt="Map of F2p Old School Runescape" class="gray" width="492" height="609"/>
+            <!-- Color map on top, revealed only where the mask is white -->
+            <image href="uzer-myth added Screenshot_2025-08-25_205453.png" alt="Map of F2p Old School Runescape" class="color" width="492" height="609"/>
+            
+            <g id="overlays">
+                <use href="#mask" class="overlay-region" data-target="m-mask"/>
+                <use href="#vb_vse" class="overlay-region" data-target="m-vb_vse"/>
+                <use href="#akm_apa" class="overlay-region" data-target="m-akm_apa"/>
+                <use href="#lse_akb" class="overlay-region" data-target="m-lse_akb"/>
+                <use href="#uzer" class="overlay-region" data-target="m-uzer"/>
+                <use href="#vsw" class="overlay-region" data-target="m-vsw"/>
+                <use href="#dray" class="overlay-region" data-target="m-dray"/>
+                <use href="#lsw" class="overlay-region" data-target="m-lsw"/>
+                <use href="#fb" class="overlay-region" data-target="m-fb"/>
+                <use href="#ice" class="overlay-region" data-target="m-ice"/>
+                <use href="#cg_rim" class="overlay-region" data-target="m-cg_rim"/>
+                <use href="#ccb" class="overlay-region" data-target="m-ccb"/>
+                <use href="#crandor" class="overlay-region" data-target="m-crandor"/>
+                <use href="#ccr_myth" class="overlay-region" data-target="m-ccr_myth"/>
+                <use href="#rune" class="overlay-region" data-target="m-rune"/>
+                <use href="#hob" class="overlay-region" data-target="m-hob"/>
+                <use href="#abyss" class="overlay-region" data-target="m-abyss"/>
+                <use href="#coal" class="overlay-region" data-target="m-coal"/>
+            </g>
+        </svg>
+    </div>
+
+<script>
+  // Toggle spotlight per region by switching the class on the matching mask shape.
+  document.querySelectorAll('.overlay-region').forEach((overlay) => {
+    const targetId = overlay.dataset.target;
+    const maskShape = document.getElementById(targetId);
+    overlay.addEventListener('click', () => {
+      maskShape.classList.toggle('active');
+      overlay.classList.toggle('active');
+      // TODO: send update to your Discord bot backend here if desired
+      // fetch('/api/claim', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ region: targetId }) });
+    });
+  });
+</script>
+</body>
+</html>
