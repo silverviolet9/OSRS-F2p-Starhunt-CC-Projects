@@ -1,32 +1,70 @@
+''' 
+Wave generator simulates star spawns and variances and calculates and plots the averages.
+It's fairly accurate but still likely needs tuning to improve accuracy. 
+Note that generated data is not saved, only whatever charts you save manually,
+ and information you print to your terminal of course.
+Every run instance we will produce all new data for the given number of worlds and waves.
+You are encouraged to adjust the number of waves and worlds which are represented by the
+ variables "waves" and "size" respectively. 
+Also play around with the print statements to view additional relevant data.
+'''
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Create first wave spawns for all worlds, make sure they are >= 0 to avoid possible fatal errors on startup.
+# Creates SEED or ANCHOR times for each world that stars will be SOFT bounded by.
+# THIS IS NOT THE FIRST WAVE.
 while True:
     valid = True
-    star_spawn = np.random.normal(loc=22.5, scale=7.5, size=298)
-    for spawn in star_spawn:
-        if spawn < 0:
+    # Star spawn is a list of float numbers generated randomly according to normal distribution parameters.
+    # loc is the mean, scale is the standard deviation, size is the number of worlds in this case.
+    # You may want to edit the size, 49 F2p worlds (excluding PVP). 298 is total number of servers.
+    size = 298
+    star_seeds = np.random.normal(loc=22.5, scale=7.5, size=size)
+    for spawn in star_seeds:
+        if spawn < 0 or spawn > 45:
             valid = False
             break
     if valid:
         break
 
-# 108 waves in a week, 10,080 minutes per week / 93.
-waves = 108
-# List of averages of variances over 108 waves for each world.
-star_averages = []
-for wave in range(waves):
-    for i in range(len(star_spawn)):
-        variance = round(np.random.normal(loc=0, scale=5))
-        spawn_variance = star_spawn[i] + variance
-        if len(star_averages) == len(star_spawn):
-            star_averages[i].append(spawn_variance)
-        else:
-            star_averages.append([spawn_variance])
+# 108 waves in a week, 10,080 minutes per week / 93 minutes per wave.
+# Since it's producing the data that is essentially assuming a recorded spawn time.
+# You may want to edit this number to simulate a more realistic number of data entries.
+waves = 3
 
-star_averages = [round(sum(variances) / len(variances)) for variances in star_averages]
+# List of averages of variances over 108 waves for each world.
+star_spawns = []
+for wave in range(waves):
+    for i in range(len(star_seeds)):
+        # When no size argument is given to np.random.normal() it generates 1 number.
+        variance = np.random.normal(loc=0, scale=5)
+        spawn_variance = star_seeds[i] + variance
+        if len(star_spawns) == len(star_seeds):
+            star_spawns[i].append(spawn_variance)
+        else:
+            # Create list of lists; list of each world, list of variances in each world.
+            # Notice the averages DO NOT include the initial seed time. Very important.
+            star_spawns.append([spawn_variance])
+
+# Gives us a clean average for all data produced similar to how it would look in the Google Sheet averages.
+star_averages = [round(sum(variances) / len(variances)) for variances in star_spawns]
+
+# Remove # on print() lines to observe the two main lists.
+#print(star_seeds)
 #print(star_averages)
+''' Notice how close the averages get to the SEED time if you managed to collect all poofs in a week.
+You can play with the number of waves which in this case is essentially number of poofs collected.
+There will be a rough threshhold point on how many data points we need to "know" the SEED time. 
+Even with only 2 data entries the results are pretty remarkably close for many worlds.
+Every further data entry adds substantial progress towards finding the SEED time. 
+Notice this is due to the properties of the normal distribution of the variance, and from this we
+can deduce that repeat number entries are a strong indicator you are close to the SEED time. 
+'''
+
+# If you want to see the whole raw data list for the week, it's an eyesore but can be helpful to see.
+# Just try to ignore the np.float64 spam and trailing decimals. Use small # of waves and worlds and 
+#  look for square brackets indicating a list containing all the variances for a single world.
+#print(star_spawns)
 
 # Plot
 bins = np.arange(-10, 55) - 0.5
@@ -40,6 +78,8 @@ plt.xlim([-10, 55])
 plt.yticks(range(0, 26, 2))
 plt.ylim([0, 26])
 plt.show()
+
+
 
 
 
