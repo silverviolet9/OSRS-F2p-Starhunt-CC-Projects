@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 # THIS IS NOT THE FIRST WAVE.
 while True:
     valid = True
-    # Star spawn is a list of float numbers generated randomly according to normal distribution parameters.
+    # Star seeds is a list of float numbers generated randomly according to normal distribution parameters.
     # loc is the mean, scale is the standard deviation, size is the number of worlds in this case.
     # You may want to edit the size, 49 F2p worlds (excluding PVP). 298 is total number of servers.
     size = 298
