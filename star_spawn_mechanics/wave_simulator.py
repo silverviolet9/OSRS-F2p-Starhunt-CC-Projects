@@ -33,7 +33,7 @@ bins = np.arange(-10, 55) - 0.5
 plt.hist(star_averages, bins=bins, edgecolor='black')
 plt.xlabel("Time into Wave")
 plt.ylabel("Number of star spawns")
-plt.title(f"Distribution of star spawn averages {waves}")
+plt.title(f"Distribution of star spawn averages over {waves} waves")
 plt.grid(axis='y', linestyle='--')
 plt.xticks(range(-10, 55, 5))
 plt.xlim([-10, 55])
