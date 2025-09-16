@@ -30,21 +30,31 @@ while True:
 # 108 waves in a week, 10,080 minutes per week / 93 minutes per wave.
 # Since it's producing the data that is essentially assuming a recorded spawn time.
 # You may want to edit this number to simulate a more realistic number of data entries.
-waves = 3
+waves = 108
 
 # List of averages of variances over 108 waves for each world.
 star_spawns = []
+count = 0
 for wave in range(waves):
     for i in range(len(star_seeds)):
         # When no size argument is given to np.random.normal() it generates 1 number.
         variance = np.random.normal(loc=0, scale=5)
         spawn_variance = star_seeds[i] + variance
+        if spawn_variance < 0 or spawn_variance > 45:
+            # Remove # on line below to see all out of bounds variances
+            #print(spawn_variance)
+            count += 1
         if len(star_spawns) == len(star_seeds):
             star_spawns[i].append(spawn_variance)
         else:
             # Create list of lists; list of each world, list of variances in each world.
             # Notice the averages DO NOT include the initial seed time. Very important.
             star_spawns.append([spawn_variance])
+
+# See number of variances beyond boundaries to gauge viability of idea.     
+print(f"Number of out of bounds variances: {count}")
+percent = round(100*count / (waves * size), 2)
+print(f"That is {percent}% of all star spawns.")
 
 # Gives us a clean average for all data produced similar to how it would look in the Google Sheet averages.
 star_averages = [round(sum(variances) / len(variances)) for variances in star_spawns]
