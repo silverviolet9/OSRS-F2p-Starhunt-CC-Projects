@@ -4,12 +4,26 @@ It's fairly accurate but still likely needs tuning to improve accuracy.
 Note that generated data is not saved, only whatever charts you save manually,
  and information you print to your terminal of course.
 Every run instance we will produce all new data for the given number of worlds and waves.
+
 You are encouraged to adjust the number of waves and worlds which are represented by the
- variables "waves" and "size" respectively. 
-Also play around with the print statements to view additional relevant data.
+ variables "waves" and "worlds" respectively. Also, the height, "height", of the graph.
+Play around with the print statements to view additional relevant data.
+
+Default data simulation suggestion worlds=298, waves=108, height=26
+Realistic data simulation suggestion worlds=49, waves=3, height=10
+You may want to edit the worlds, 49 F2p worlds (excluding PVP). 298 is total number of servers.
+108 waves in a week, 10,080 minutes per week / 93 minutes per wave.
+Since it's producing the data that is essentially assuming a recorded spawn time.
+You may want to edit this number to simulate a more realistic number of data entries.
+You can adjust the height for better visuals if needed.
 '''
 import numpy as np
 import matplotlib.pyplot as plt
+
+# Change me
+worlds = 298
+waves = 108
+height = 26
 
 # Creates SEED or ANCHOR times for each world that stars will be SOFT bounded by.
 # THIS IS NOT THE FIRST WAVE.
@@ -17,20 +31,13 @@ while True:
     valid = True
     # Star seeds is a list of float numbers generated randomly according to normal distribution parameters.
     # loc is the mean, scale is the standard deviation, size is the number of worlds in this case.
-    # You may want to edit the size, 49 F2p worlds (excluding PVP). 298 is total number of servers.
-    size = 298
-    star_seeds = np.random.normal(loc=22.5, scale=7.5, size=size)
+    star_seeds = np.random.normal(loc=22.5, scale=7.5, size=worlds)
     for spawn in star_seeds:
         if spawn < 0 or spawn > 45:
             valid = False
             break
     if valid:
         break
-
-# 108 waves in a week, 10,080 minutes per week / 93 minutes per wave.
-# Since it's producing the data that is essentially assuming a recorded spawn time.
-# You may want to edit this number to simulate a more realistic number of data entries.
-waves = 108
 
 # List of averages of variances over 108 waves for each world.
 star_spawns = []
@@ -53,7 +60,7 @@ for wave in range(waves):
 
 # See number of variances beyond boundaries to gauge viability of idea.     
 print(f"Number of out of bounds variances: {count}")
-percent = round(100*count / (waves * size), 2)
+percent = round(100*count / (waves * worlds), 2)
 print(f"That is {percent}% of all star spawns.")
 
 # Gives us a clean average for all data produced similar to how it would look in the Google Sheet averages.
@@ -85,8 +92,8 @@ plt.title(f"Distribution of star spawn averages over {waves} waves")
 plt.grid(axis='y', linestyle='--')
 plt.xticks(range(-10, 55, 5))
 plt.xlim([-10, 55])
-plt.yticks(range(0, 26, 2))
-plt.ylim([0, 26])
+plt.yticks(range(0, height, 2))
+plt.ylim([0, height])
 plt.show()
 
 
