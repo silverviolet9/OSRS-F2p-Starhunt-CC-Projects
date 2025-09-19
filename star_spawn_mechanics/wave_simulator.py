@@ -1,9 +1,10 @@
 ''' 
 This program simulates star spawns and their variances and calculates and plots useful data.
 This simulator is quite accurate, but may still need some fine tuning for complete accuracy. 
-Note that generated data is not saved, only whatever charts you save manually,
+Note that generated data is not saved, only whatever graphs you save manually,
  and information you print to your terminal of course.
 Every run instance we will produce all new data for the given number of worlds and waves.
+It's expected you run this program at least several times to see varying results.
 
 You are encouraged to adjust the number of waves and worlds which are represented by the
  variables "waves" and "worlds" respectively. Also, the height, "height", of the graph.
@@ -30,6 +31,11 @@ import matplotlib.pyplot as plt
 worlds = 298
 waves = 108
 height = 26
+
+# If you want to reproduce the same data and graph each time.
+# Generally leave this commented out to preserve the variation intended for each dataset.
+#np.random.seed(42)
+
 
 # Creates SEED or ANCHOR times for each world so that stars will be SOFT bounded by +-15 the seed.
 # THIS IS NOT THE FIRST WAVE.
@@ -59,7 +65,10 @@ for wave in range(waves):
         # When no size argument is given to np.random.normal() it generates 1 number.
         variance = np.random.normal(loc=0, scale=5)
         spawn_variance = star_seeds[i] + variance
-        if spawn_variance < 0 or spawn_variance > 45:
+        # You can adjust the boundaries here to see the number and % of stars outside them.
+        # < 7.5 and > 37.5 will show number of stars in the 3 standard deviations range in
+        #  reference to the seeded normal distribution. 
+        if spawn_variance < 7.5 or spawn_variance > 37.5:
             # Remove # on line below to see all out of bounds variances
             #print(spawn_variance)
             count += 1
